@@ -1,0 +1,46 @@
+name: TokenEntryDemo
+options:
+  bundleIdPrefix: biz.hickman
+  deploymentTarget:
+    iOS: "18.0"
+packages:
+  TokenEntry:
+    path: .
+settings:
+  SWIFT_VERSION: "6.0"
+targets:
+  TokenEntryDemo:
+    type: application
+    platform: iOS
+    sources: [Demo]
+    dependencies:
+      - package: TokenEntry
+    settings:
+      GENERATE_INFOPLIST_FILE: YES
+      INFOPLIST_KEY_UILaunchScreen_Generation: YES
+      INFOPLIST_KEY_UIApplicationSceneManifest_Generation: YES
+      TARGETED_DEVICE_FAMILY: "1,2"
+  TokenEntryDemoUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources: [DemoUITests]
+    dependencies:
+      - target: TokenEntryDemo
+    settings:
+      GENERATE_INFOPLIST_FILE: YES
+  TokenEntryUnitTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources: [Tests/TokenEntryTests]
+    dependencies:
+      - package: TokenEntry
+    settings:
+      GENERATE_INFOPLIST_FILE: YES
+schemes:
+  TokenEntryDemo:
+    build:
+      targets:
+        TokenEntryDemo: all
+        TokenEntryDemoUITests: [test]
+    test:
+      targets: [TokenEntryDemoUITests, TokenEntryUnitTests]
